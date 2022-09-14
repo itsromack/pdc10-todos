@@ -9,6 +9,9 @@ use App\Todo;
 $connObj = new Connection($host, $database, $user, $password);
 $connection = $connObj->connect();
 
-$task = new Todo('Clean the house');
+$task = new Todo('');
 $task->setConnection($connection);
-$task->save();
+$task->getById(1);
+$task->update('Collect wood', 0);
+
+var_dump($task);

@@ -84,10 +84,28 @@ class Todo
 	public function update($task, $is_completed)
 	{
 		try {
-			$this->task = $task;
 			$sql = 'UPDATE todos SET task=?, is_completed=? WHERE id=?';
 			$statement = $this->connection->prepare($sql);
-			$statement->execute([$task, $is_completed, $this->getId()]);
+			$statement->execute([
+				$task,
+				$is_completed,
+				$this->getId()
+			]);
+			$this->task = $task;
+			$this->is_completed = $is_completed;
+		} catch (Exception $e) {
+			error_log($e->getMessage());
+		}
+	}
+
+	public function delete()
+	{
+		try {
+			$sql = 'DELETE FROM todos WHERE id=?';
+			$statement = $this->connection->prepare($sql);
+			$statement->execute([
+				$this->getId()
+			]);
 		} catch (Exception $e) {
 			error_log($e->getMessage());
 		}
