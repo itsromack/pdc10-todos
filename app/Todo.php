@@ -110,4 +110,15 @@ class Todo
 			error_log($e->getMessage());
 		}
 	}
+
+	public function getAll()
+	{
+		try {
+			$sql = 'SELECT * FROM todos';
+			$data = $this->connection->query($sql)->fetchAll();
+			return $data;
+		} catch (Exception $e) {
+			error_log($e->getMessage());
+		}
+	}
 }
